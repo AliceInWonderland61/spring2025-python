@@ -189,3 +189,29 @@ def merge_alternately(word1, word2):
 # The function should return the number of good pairs.
 #A pair (i, j) is called good if pile1[i] is divisible by pile2[j] * k. Assume 0 <= i <= len(pile1) - 1 and 0 <= j <= len(pile2) - 1
 
+#so apparently we need to loop through the second list, get each value mulitply it by k and then 
+#use it as the mod value for the the values in the first list 
+
+def good_pairs(pile1, pile2, k):
+    pairs=0 #current pairs is 0
+    for i in pile1:
+        #so we get the first element in pile1
+        for j in pile2:
+            #get the first elementin pile2 and multiply it by k
+            #if that value is divisible by the current i then we have a good pair
+            if i%(j*k)==0:
+                #update the pair 
+                pairs+=1
+
+    return pairs
+
+
+pile1 = [1, 3, 4]
+pile2 = [1, 3, 4]
+k = 1
+print(good_pairs(pile1, pile2, k))
+
+pile1 = [1, 2, 4, 12]
+pile2 = [2, 4]
+k = 3
+print(good_pairs(pile1, pile2, k))
