@@ -261,29 +261,9 @@ def schedule_pattern(pattern, schedule):
 #Return performer_names sorted in descending order by the performance durations.
 
 def sort_performers(performer_names, performance_times):
-    #ok so from the looks of it, they want us to go through the performer names and times 
-    #create a dictionary to store the performer names and their corresponding times
-    #then we can sort the dictionary by the performance times 
-    #then we return a list of the performer names in the greatest to smallest order of their performance times
+#we cannot use a dicttionary because we have repeated values in performer names 
+    combined=list(zip(performer_names, performance_times))
+    sort_combined=sorted(combined, key=lambda x:x[1], reverse=True)
+    #after sorting it now I need to return the first element of each tuple in the sorted list 
+    return [x[0] for x in sort_combined]
 
-    dic={}
-#   NEED TO FIX, WE NEED TO ALLOW REPEATED VALUES 
-    for i in range(len(performer_names)):
-        dic[performer_names[i]] = performance_times[i]
-    
-    #after we have added all of the peformers now we try to sort 
-    #item[1] means we want to sort by the value of the dictionary 
-    # if we did item[0] then it means to sort by the key 
-    # reverse = True means we want it it from largest to smallest (descending)
-    sorted_dict = dict(sorted(dic.items(), key=lambda item: item[1], reverse=True))
-
-    return sorted_dict.keys()
-
-performer_names1 = ["Mary", "John", "Emma"]
-performance_times1 = [180, 165, 170]
-
-performer_names2 = ["Alice", "Bob", "Bob"]
-performance_times2 = [155, 185, 150]
-
-print(sort_performers(performer_names1, performance_times1)) 
-print(sort_performers(performer_names2, performance_times2))
