@@ -245,8 +245,3 @@ def num_equiv_species_pairs(species_pairs):
             if (a==c and b==d) or (a==d and b==c):
                 counter+=1
     return counter 
-
-
-
-
-
