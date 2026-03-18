@@ -102,4 +102,74 @@ def booth_navigation(clues):
 #Return the merged performance schedule.
 
 def merge_schedules(schedule1, schedule2):
+
+    #so we're merging in an alternating order 
+    # i remember reading about zip in python 
+    zipped=zip(schedule1,schedule2)
+    merged=""
+    for i in zipped:
+        #so in zipped it makes them [0][1] in an array [
+        # 0]is the first element in schedule1 and [1]is the first element in scheudle2
+        #since we want them to be strings we'll just add them as strings 
+        merged+=i[0]+i[1]
+
+    # Append any remaining performances from the longer schedule
+    #if sschedule 1 is longer then take the length of schedule 2 as a starting point from wheree we need to start adding 
+    if len(schedule1) > len(schedule2):
+        merged += schedule1[len(schedule2):]
+        #same here if the second one is bigger then take the length of schedule1 and use that index as the starting point 
+    elif len(schedule2) > len(schedule1):
+        merged += schedule2[len(schedule1):]
+
+    return merged
+
+#Problem 6: At a cultural festival, you have a schedule of events where each event has a unique popularity score. 
+# The schedule is represented by two distinct 0-indexed integer arrays schedule1 and schedule2, 
+# where schedule1 is a subset of schedule2.
+#For each event in schedule1, find its position in schedule2 and determine the next event in schedule2 with a higher popularity score. 
+# If there is no such event, then the answer for that event is -1.
+#Return an array ans of length schedule1.length such that ans[i] is the next greater event's popularity score as described above.
+def next_greater_event(schedule1, schedule2):
+    #ok so we look at the first number in schedule 1, locate it on schedule 2 then look to the right of that number 
+    #if that number is bigger than the currernt number then we add it to the answer arrray, if not we keep looking until we find a bigger numbert 
+    #if there is no bigger number and we rached the end of the array then we just do -1
+
+    combination=[]
+
+    for i in schedule1:
+        #get the index for that number and find it in schedule 2
+        if i in schedule2:
+            index=schedule2.index(i)
+        found=False
+        for j in range(index+1,len(schedule2)):
+            if schedule2[j]>i:
+                combination.append(schedule2[j])
+                found=True
+                break
+        if not found:
+            combination.append(-1)
+    return combination 
+
+#Problem 7: You are organizing a cultural festival and have a list of performances represented by an integer array performances. 
+# Each performance is classified as either an even type (e.g., dance, music) or an odd type (e.g., drama, poetry).
+#Your task is to rearrange the performances so that all the even-type performances appear at the beginning of the array, 
+# followed by all the odd-type performances.
+#Return any array that satisfies this condition.
+
+
+def sort_performances_by_type(performances):
+    #so we can just make two arrays and then merge them 
+
+    even=[]
+    odd=[]
+
+    for i in performances:
+        if i%2==0:
+            even.append(i)
+        else:
+            odd.append(i)
+    merged=even+odd
+    return merged
+
+
     
